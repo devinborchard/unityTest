@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ground
+    uniqueID: 4210441137
+    locked: 0
+  - name: pawns
+    uniqueID: 1109186857
+    locked: 0
