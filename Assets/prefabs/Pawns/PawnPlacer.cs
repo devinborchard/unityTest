@@ -13,7 +13,7 @@ public class PawnPlacer : MonoBehaviour
     public GameObject Archer;
     public GameObject Cleric;
     public GameObject King;
-
+    public GameObject GameManager;
     public GameObject UIPrefab;
     private GameObject ui;
     private TMP_Text unitPointsText;
@@ -37,6 +37,8 @@ public class PawnPlacer : MonoBehaviour
         Transform buttonTransform = canvasTransformReadyButton.Find("Button");
         ReadyButton = buttonTransform.gameObject;
         ReadyButton.SetActive(false);
+        Button buttonComponent = ReadyButton.GetComponent<Button>();
+		buttonComponent.onClick.AddListener(EndPawnPlacing);
 
         // find ui element for unit points available
         Transform canvasTransformUnitPoints = ui.transform.Find("Canvas - Unit Points");
@@ -47,7 +49,8 @@ public class PawnPlacer : MonoBehaviour
         Transform canvasTransformUnitBar = ui.transform.Find("Canvas - Unit Bar");
         raycaster = canvasTransformUnitBar.gameObject.GetComponent<GraphicRaycaster>();
                   
-        
+        // set game manager
+        GameManager = GameObject.Find("GameManager");
     }
 
     void DetectUnitSelect(){
@@ -202,6 +205,20 @@ public class PawnPlacer : MonoBehaviour
             PlaceUnit();
         }
     }
+
+    public void EndPawnPlacing(){
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+        // Loop through all objects and check if their name contains the search string
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.name.Contains("PawnPlacerUI"))
+            {
+                Destroy(obj);
+            }
+        }
+        GameManager.GetComponent<GameManager>().BeginGame();
+        Destroy(gameObject);
+    } 
 
     void Update()
     {

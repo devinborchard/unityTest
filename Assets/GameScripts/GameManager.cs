@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
         GameObject pawnPlacer = Instantiate(PawnPlacer, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
+    public void BeginGame(){
+        Debug.Log("Game starting");
+    }
+
     // Update is called once per frame
     void Update()
     {
